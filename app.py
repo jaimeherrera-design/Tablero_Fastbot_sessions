@@ -13,6 +13,7 @@ from data_logic import aggregate_with_variation, current_month_comparison, disco
 
 DATA_DIR = Path(__file__).resolve().parent
 COLORS = {"mint": "#50E3C2", "cyan": "#44B7F7", "amber": "#FFB547", "red": "#FF6376", "violet": "#C38BFA", "grid": "#253047"}
+MONTH_SIGNAL_COLORS = {"mint": "#00E676", "amber": "#FFC107", "red": "#FF1744"}
 METRIC_LABELS = {
     "cuenta": "Sesiones",
     "user_started_session": "Iniciadas por usuario",
@@ -117,7 +118,7 @@ st.markdown(
     .kpi-section { margin: 4px 0 26px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
     .section-kicker { margin: 0 0 12px 3px; color: #8b98a7; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
     .kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin: 0; }
-    .kpi-card { min-width: 0; min-height: 101px; padding: 12px 13px; border: 1px solid #202a33; border-top: 3px solid var(--accent); border-radius: 11px; background: linear-gradient(145deg, #11161a, #0b0e11); box-shadow: 0 8px 18px rgba(0,0,0,.2); }
+    .kpi-card { min-width: 0; min-height: 101px; padding: 12px 13px; border: 1px solid #202a33; border-top: 1px solid #202a33; border-radius: 11px; background: linear-gradient(145deg, #11161a, #0b0e11); box-shadow: 0 8px 18px rgba(0,0,0,.2); }
     .kpi-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .kpi-label { overflow: hidden; color: #8f98a3; font-size: .78rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .kpi-icon { color: var(--accent); font: 600 22px/1 'Space Grotesk'; }
@@ -425,34 +426,48 @@ with evolution_tab:
         timeline["Periodo"] = timeline[period].map(lambda value: f"{int(value):02d}:00")
     chart_left, chart_right = st.columns([1.6, 1])
     with chart_left:
-        volume_chart = px.bar(timeline, x="Periodo", y=selected_metric, text_auto="~s", title=f"{METRIC_LABELS[selected_metric]} por {period_label.lower()}", color_discrete_sequence=[METRIC_COLORS[selected_metric]])
+        if period_label == "Mes":
+            volume_chart = px.bar(timeline, x="Periodo", y=selected_metric, text_auto="~s", title=f"{METRIC_LABELS[selected_metric]} por {period_label.lower()}", color_discrete_sequence=[METRIC_COLORS[selected_metric]])
+        else:
+            volume_chart = px.line(timeline, x="Periodo", y=selected_metric, markers=True, title=f"{METRIC_LABELS[selected_metric]} por {period_label.lower()}")
         if period_label == "Mes":
             monthly_average = float(timeline[selected_metric].mean())
             if selected_metric == "not_available_agent_session":
                 bar_colors = [
-                    COLORS["red"] if value > monthly_average * 1.05
-                    else COLORS["mint"] if value < monthly_average * 0.95
-                    else COLORS["amber"]
+                    MONTH_SIGNAL_COLORS["red"] if value > monthly_average * 1.05
+                    else MONTH_SIGNAL_COLORS["mint"] if value < monthly_average * 0.95
+                    else MONTH_SIGNAL_COLORS["amber"]
                     for value in timeline[selected_metric]
                 ]
             else:
                 bar_colors = [
-                    COLORS["mint"] if value > monthly_average * 1.05
-                    else COLORS["red"] if value < monthly_average * 0.95
-                    else COLORS["amber"]
+                    MONTH_SIGNAL_COLORS["mint"] if value > monthly_average * 1.05
+                    else MONTH_SIGNAL_COLORS["red"] if value < monthly_average * 0.95
+                    else MONTH_SIGNAL_COLORS["amber"]
                     for value in timeline[selected_metric]
                 ]
             volume_chart.update_traces(marker_color=bar_colors, marker_line_color=bar_colors)
-            volume_chart.add_hline(
-                y=monthly_average,
-                line_width=2,
-                line_dash="dash",
-                line_color="#EDF3FC",
-                annotation_text=f"Promedio · {format_number(monthly_average)}",
-                annotation_position="top right",
-                annotation_font_color="#EDF3FC",
-            )
-        volume_chart.update_traces(textposition="outside", cliponaxis=False)
+        else:
+            period_average = float(timeline[selected_metric].mean())
+            if selected_metric == "not_available_agent_session":
+                signal_colors = [
+                    MONTH_SIGNAL_COLORS["red"] if value > period_average * 1.05
+                    else MONTH_SIGNAL_COLORS["mint"] if value < period_average * 0.95
+                    else MONTH_SIGNAL_COLORS["amber"]
+                    for value in timeline[selected_metric]
+                ]
+            else:
+                signal_colors = [
+                    MONTH_SIGNAL_COLORS["mint"] if value > period_average * 1.05
+                    else MONTH_SIGNAL_COLORS["red"] if value < period_average * 0.95
+                    else MONTH_SIGNAL_COLORS["amber"]
+                    for value in timeline[selected_metric]
+                ]
+            volume_chart.update_traces(marker=dict(color=signal_colors, size=8), line=dict(color="#64748B", width=2))
+        if period_label == "Mes":
+            volume_chart.update_traces(textposition="outside", cliponaxis=False)
+        else:
+            volume_chart.update_traces(cliponaxis=False)
         if period_label == "Día":
             volume_chart.update_xaxes(
                 tickmode="array",
@@ -466,15 +481,23 @@ with evolution_tab:
     with chart_right:
         variation = timeline.dropna(subset=["variacion"])
         variation_chart = px.bar(variation, x="Periodo", y="variacion", text=[f"{value:+.2f}%" for value in variation["variacion"]], title="Variación vs. periodo anterior", color="variacion", color_continuous_scale=[[0, COLORS["red"]], [.5, COLORS["amber"]], [1, COLORS["mint"]]], color_continuous_midpoint=0)
+        if period_label == "Mes":
+            variation_colors = [
+                MONTH_SIGNAL_COLORS["mint"] if value > 5 else MONTH_SIGNAL_COLORS["red"] if value < -5 else MONTH_SIGNAL_COLORS["amber"]
+                for value in variation["variacion"]
+            ]
+            variation_chart.update_traces(marker_color=variation_colors, marker_line_color=variation_colors)
         variation_chart.update_traces(textposition="outside", cliponaxis=False)
         variation_chart.update_layout(coloraxis_showscale=False)
         variation_chart.update_yaxes(ticksuffix="%")
         if period_label == "Día":
             variation_chart.update_xaxes(
                 tickmode="array",
-                tickvals=list(range(1, 32)),
-                ticktext=[str(day) for day in range(1, 32)],
+                tickvals=list(range(1, 32, 2)),
+                ticktext=[str(day) for day in range(1, 32, 2)],
                 title_text="Día del mes",
+                tickangle=0,
+                tickfont=dict(size=9, color="#FFFFFF"),
                 range=[0.5, 31.5],
             )
         with st.container(border=True):
