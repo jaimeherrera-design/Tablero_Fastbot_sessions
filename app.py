@@ -128,7 +128,9 @@ st.markdown(
     .stTabs [data-baseweb="tab-list"], .stTabs [role="tablist"] { display: flex; gap: 4px; width: 100%; margin-bottom: 28px; padding: 6px; border: 1px solid #33414d !important; border-radius: 14px; background: #090c0f !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 8px 22px rgba(0,0,0,.2); }
     .stTabs [data-testid="stTab"] { flex: 1 1 0; height: 48px; min-width: 0; border: 1px solid transparent; border-radius: 9px; color: #8e9aa8; font-weight: 600; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
     .stTabs [data-testid="stTab"]:hover { color: #ffffff !important; background: #13191e !important; }
-    .stTabs [data-testid="stTab"][aria-selected="true"] { color: #ffffff !important; border: 0 !important; border-top: 2px solid #ff6376 !important; border-bottom: 3px solid #13d5af !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+    .stTabs [data-testid="stTab"][aria-selected="true"] { position: relative; padding-right: 32px; color: #ffffff !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+    .stTabs [data-baseweb="tab-highlight"], .stTabs .react-aria-SelectionIndicator { display: none !important; }
+    .stTabs [data-testid="stTab"][aria-selected="true"]::after { content: "✓"; position: absolute; top: 50%; right: 13px; border: 0 !important; background: transparent !important; color: #13d5af; font-size: 17px; font-weight: 700; line-height: 1; transform: translateY(-50%); }
     .stTabs [data-testid="stTab"] p { color: inherit !important; font-size: .9rem; }
     .stTabs [data-baseweb="tab-panel"], .stTabs [role="tabpanel"] { margin-top: 0; padding: 72px 10px 24px !important; border: 1px solid #1f2a35; border-radius: 22px; background: #07090b !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.02), 0 14px 32px rgba(0,0,0,.18); }
     .matrix-shell { overflow: auto; max-height: 430px; border: 1px solid #29364d; border-radius: 8px; }
