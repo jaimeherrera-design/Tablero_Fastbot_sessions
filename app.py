@@ -114,16 +114,16 @@ st.markdown(
     .be5 { left: 19%; top: 78%; width: 43%; transform: rotate(-11deg); }
     .be6 { left: 36%; top: 42%; width: 37%; transform: rotate(49deg); }
     .be7 { left: 9%; top: 15%; width: 68%; transform: rotate(52deg); }
-    .kpi-section { margin: 4px 0 26px; padding: 15px; border: 1px solid #1f2a35; border-radius: 16px; background: #090c0f; box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 14px 36px rgba(0,0,0,.2); }
+    .kpi-section { margin: 4px 0 26px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
     .section-kicker { margin: 0 0 12px 3px; color: #8b98a7; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
     .kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin: 0; }
     .kpi-card { min-width: 0; min-height: 101px; padding: 12px 13px; border: 1px solid #202a33; border-top: 3px solid var(--accent); border-radius: 11px; background: linear-gradient(145deg, #11161a, #0b0e11); box-shadow: 0 8px 18px rgba(0,0,0,.2); }
     .kpi-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .kpi-label { overflow: hidden; color: #aebbd0; font-size: .78rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .kpi-label { overflow: hidden; color: #8f98a3; font-size: .78rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .kpi-icon { color: var(--accent); font: 600 22px/1 'Space Grotesk'; }
-    .kpi-value { margin-top: 11px; color: #f4f8ff; font: 600 clamp(1.25rem, 1.7vw, 1.85rem)/1 'Space Grotesk'; white-space: nowrap; }
+    .kpi-value { margin-top: 11px; color: var(--accent); font: 600 clamp(1.25rem, 1.7vw, 1.85rem)/1 'Space Grotesk'; white-space: nowrap; }
     .kpi-note { margin-top: 7px; color: #8795aa; font-size: .66rem; }
-    .kpi-note strong { color: var(--accent); }
+    .kpi-note strong { color: #7d8792; font-weight: 500; }
     .stTabs { margin-top: 8px; }
     .stTabs [data-baseweb="tab-list"], .stTabs [role="tablist"] { display: flex; gap: 4px; width: 100%; margin-bottom: 28px; padding: 6px; border: 1px solid #33414d !important; border-radius: 14px; background: #090c0f !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 8px 22px rgba(0,0,0,.2); }
     .stTabs [data-testid="stTab"] { flex: 1 1 0; height: 48px; min-width: 0; border: 1px solid transparent; border-radius: 9px; color: #8e9aa8; font-weight: 600; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
@@ -190,7 +190,7 @@ def style_figure(figure: go.Figure, height: int = 390) -> go.Figure:
         height=height,
         margin=dict(l=12, r=12, t=58, b=12),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(19,28,44,.76)",
+        plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family="DM Sans", color="#FFFFFF"),
         title_font=dict(family="Space Grotesk", size=17, color="#FFFFFF"),
         legend=dict(font=dict(color="#FFFFFF"), title_font=dict(color="#FFFFFF")),
