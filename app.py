@@ -28,7 +28,9 @@ st.markdown(
     <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
     :root { color-scheme: dark; }
-    .stApp { background: linear-gradient(rgba(12,17,28,.95), rgba(12,17,28,.99)), repeating-linear-gradient(90deg, transparent 0, transparent 79px, #1b263b 80px), #0c111c; color: #edf3fc; font-family: 'DM Sans', sans-serif; }
+    .stApp { background: #050708; color: #edf3fc; font-family: 'DM Sans', sans-serif; }
+    [data-testid="stAppViewContainer"], [data-testid="stMain"] { background: #050708; }
+    [data-testid="stMainBlockContainer"] { max-width: 1440px; padding-top: 28px; padding-bottom: 36px; }
     h1, h2, h3 { font-family: 'Space Grotesk', sans-serif !important; letter-spacing: 0 !important; }
     [data-testid="stHeader"] { background: #0c111c; }
     [data-testid="stSidebar"] { background: #101725; border-right: 1px solid #253047; }
@@ -50,6 +52,16 @@ st.markdown(
     [data-testid="stSegmentedControl"] p {
         color: #ffffff !important;
     }
+    [data-testid="stSegmentedControl"], [data-baseweb="segmented-control"] { padding: 4px; border: 1px solid #1f2a35; border-radius: 10px; background: #090c0f; }
+    [data-testid="stSegmentedControl"] [aria-checked="true"],
+    [data-testid="stSegmentedControl"] [data-selected="true"],
+    [data-baseweb="segmented-control"] [aria-checked="true"] {
+        border-radius: 7px !important;
+        background: #063d34 !important;
+        color: #ffffff !important;
+        box-shadow: inset 0 0 0 1px #1ac9a8, 0 4px 12px rgba(0,0,0,.25);
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] { border-color: #1f2a35 !important; border-radius: 14px !important; background: #090c0f !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 10px 24px rgba(0,0,0,.16); }
     [data-testid="stSidebar"] [data-testid="stCaptionContainer"] p { color: #cbd5e1 !important; }
     [data-testid="stSidebarCollapseButton"] button,
     button[data-testid="stExpandSidebarButton"] {
@@ -102,17 +114,22 @@ st.markdown(
     .be5 { left: 19%; top: 78%; width: 43%; transform: rotate(-11deg); }
     .be6 { left: 36%; top: 42%; width: 37%; transform: rotate(49deg); }
     .be7 { left: 9%; top: 15%; width: 68%; transform: rotate(52deg); }
-    .kpi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 2px 0 24px; }
-    .kpi-card { min-width: 0; min-height: 132px; padding: 16px; border: 1px solid #29364d; border-top: 3px solid var(--accent); border-radius: 8px; background: linear-gradient(145deg, #162132, #0f1725); }
+    .kpi-section { margin: 4px 0 26px; padding: 18px; border: 1px solid #1f2a35; border-radius: 16px; background: #090c0f; box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 14px 36px rgba(0,0,0,.2); }
+    .section-kicker { margin: 0 0 15px 3px; color: #8b98a7; font-size: .76rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; }
+    .kpi-card { min-width: 0; min-height: 112px; padding: 15px 16px; border: 1px solid #202a33; border-top: 3px solid var(--accent); border-radius: 11px; background: linear-gradient(145deg, #11161a, #0b0e11); box-shadow: 0 8px 18px rgba(0,0,0,.2); }
     .kpi-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .kpi-label { overflow: hidden; color: #aebbd0; font-size: .78rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .kpi-icon { color: var(--accent); font: 600 22px/1 'Space Grotesk'; }
     .kpi-value { margin-top: 15px; color: #f4f8ff; font: 600 clamp(1.45rem, 2vw, 2.05rem)/1 'Space Grotesk'; white-space: nowrap; }
     .kpi-note { margin-top: 9px; color: #8795aa; font-size: .72rem; }
     .kpi-note strong { color: var(--accent); }
-    .stTabs [data-baseweb="tab-list"] { gap: 8px; border-bottom: 1px solid #29364d; }
-    .stTabs [data-baseweb="tab"] { height: 48px; color: #9ba8bd; }
-    .stTabs [aria-selected="true"] { color: #edf3fc !important; border-bottom: 2px solid #50e3c2; }
+    .stTabs { margin-top: 8px; }
+    .stTabs [data-baseweb="tab-list"] { gap: 5px; padding: 5px; border: 1px solid #1f2a35; border-radius: 12px; background: #090c0f; }
+    .stTabs [data-baseweb="tab"] { height: 42px; border-radius: 8px; color: #8e9aa8; font-weight: 600; }
+    .stTabs [data-baseweb="tab"]:hover { color: #ffffff; background: #13191e; }
+    .stTabs [aria-selected="true"] { color: #ffffff !important; border-bottom: 0 !important; background: #063d34 !important; box-shadow: inset 0 0 0 1px #1ac9a8, 0 5px 16px rgba(0,0,0,.25); }
+    .stTabs [data-baseweb="tab-panel"] { padding-top: 24px; background: #050708; }
     .matrix-shell { overflow: auto; max-height: 430px; border: 1px solid #29364d; border-radius: 8px; }
     table.kpi-matrix { width: 100%; border-collapse: collapse; background: #070b11; font-size: .8rem; }
     table.kpi-matrix th { position: sticky; top: 0; padding: 10px; background: #0d1522 !important; color: #fff !important; text-align: center; }
@@ -134,7 +151,7 @@ st.markdown(
     .insight strong { display: block; margin: 17px 0 8px; color: #f4f8ff; font-family: 'Space Grotesk'; }
     .insight p { margin: 0; color: #aab5c7; font-size: .86rem; line-height: 1.45; }
     @media (max-width: 1000px) { .kpi-grid, .insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 600px) { .kpi-grid, .insight-grid { grid-template-columns: 1fr; } .dashboard-banner { min-height: 210px; padding: 24px 20px; } .banner-content { max-width: 100%; } .dashboard-banner h1 { font-size: 28px !important; } .dashboard-banner p { max-width: 88%; font-size: .84rem; line-height: 1.5; } .banner-network { inset: 40% -15% 0 42%; opacity: .32; } }
+    @media (max-width: 600px) { .kpi-section { padding: 13px; border-radius: 12px; } .kpi-grid, .insight-grid { grid-template-columns: 1fr; } .dashboard-banner { min-height: 210px; padding: 24px 20px; } .banner-content { max-width: 100%; } .dashboard-banner h1 { font-size: 28px !important; } .dashboard-banner p { max-width: 88%; font-size: .84rem; line-height: 1.5; } .banner-network { inset: 40% -15% 0 42%; opacity: .32; } }
     </style>
     """,
     unsafe_allow_html=True,
@@ -380,7 +397,7 @@ cards = [
     ("Duración promedio", format_duration(average_duration), "◷", COLORS["amber"], "Formato HH:MM:SS"),
 ]
 card_html = "".join(f'<article class="kpi-card" style="--accent:{color}"><div class="kpi-head"><span class="kpi-label">{label}</span><span class="kpi-icon">{icon}</span></div><div class="kpi-value">{value}</div><div class="kpi-note"><strong>{note}</strong></div></article>' for label, value, icon, color, note in cards)
-st.markdown(f'<section class="kpi-grid">{card_html}</section>', unsafe_allow_html=True)
+st.markdown(f'<section class="kpi-section"><div class="section-kicker">Indicadores clave de gestión</div><div class="kpi-grid">{card_html}</div></section>', unsafe_allow_html=True)
 
 evolution_tab, participation_tab, heatmap_tab, insights_tab = st.tabs(["Evolución y variaciones", "Participación", "Mapas de calor", "Insights"])
 with evolution_tab:
@@ -440,7 +457,8 @@ with evolution_tab:
                 title_text="Día del mes",
                 range=[0.5, 31.5],
             )
-        st.plotly_chart(style_figure(volume_chart), width="stretch")
+        with st.container(border=True):
+            st.plotly_chart(style_figure(volume_chart), width="stretch")
     with chart_right:
         variation = timeline.dropna(subset=["variacion"])
         variation_chart = px.bar(variation, x="Periodo", y="variacion", text=[f"{value:+.2f}%" for value in variation["variacion"]], title="Variación vs. periodo anterior", color="variacion", color_continuous_scale=[[0, COLORS["red"]], [.5, COLORS["amber"]], [1, COLORS["mint"]]], color_continuous_midpoint=0)
@@ -455,8 +473,8 @@ with evolution_tab:
                 title_text="Día del mes",
                 range=[0.5, 31.5],
             )
-        st.plotly_chart(style_figure(variation_chart), width="stretch")
-    st.subheader("Matriz de indicadores")
+        with st.container(border=True):
+            st.plotly_chart(style_figure(variation_chart), width="stretch")
     matrix_period = st.segmented_control("Detalle", ["Mes", "Día", "Hora"], default="Mes", key="matrix_period") or "Mes"
     matrix = build_matrix(filtered, matrix_period)
     started_max = float(matrix["% Iniciadas"].max())
@@ -473,7 +491,9 @@ with evolution_tab:
         .hide(axis="index")
         .set_table_attributes('class="kpi-matrix"')
     )
-    st.markdown(f'<div class="matrix-shell">{matrix_style.to_html()}</div>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.subheader("Matriz de indicadores")
+        st.markdown(f'<div class="matrix-shell">{matrix_style.to_html()}</div>', unsafe_allow_html=True)
 
 with participation_tab:
     participation_control_left, participation_control_right = st.columns(2)
@@ -550,7 +570,8 @@ with participation_tab:
     participation_chart.update_xaxes(tickformat="~s")
     participation_chart.update_yaxes(ticksuffix=y_suffix)
     participation_chart.update_layout(coloraxis_colorbar=dict(title=dict(text=y_axis_title, font=dict(color="#FFFFFF")), tickfont=dict(color="#FFFFFF"), ticksuffix=y_suffix))
-    st.plotly_chart(style_figure(participation_chart, 500), width="stretch")
+    with st.container(border=True):
+        st.plotly_chart(style_figure(participation_chart, 500), width="stretch")
     display_participation = participation.rename(columns={dimension: dimension_label, **METRIC_LABELS})
     display_participation[dimension_label] = display_participation[dimension_label].map(lambda value: escape(str(value)))
     display_participation["Duración media"] = display_participation["Duración media"].map(format_duration)
@@ -579,17 +600,21 @@ with participation_tab:
         }, escape=None)
     )
     participation_style = participation_style.hide(axis="index").set_table_attributes('class="participation-table"')
-    st.markdown(f'<div class="participation-shell">{participation_style.to_html()}</div>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown(f'<div class="participation-shell">{participation_style.to_html()}</div>', unsafe_allow_html=True)
 
 with heatmap_tab:
     heatmap_metric = st.selectbox("Métrica de volumen", list(METRIC_LABELS), format_func=METRIC_LABELS.get, key="heatmap_metric")
-    st.plotly_chart(build_heatmap(filtered, heatmap_metric, False), width="stretch")
+    with st.container(border=True):
+        st.plotly_chart(build_heatmap(filtered, heatmap_metric, False), width="stretch")
     rate_metric = st.segmented_control("Tasa", ["user_started_session", "not_available_agent_session"], default="not_available_agent_session", format_func=METRIC_LABELS.get) or "not_available_agent_session"
-    st.plotly_chart(build_heatmap(filtered, rate_metric, True), width="stretch")
+    with st.container(border=True):
+        st.plotly_chart(build_heatmap(filtered, rate_metric, True), width="stretch")
 
 with insights_tab:
-    st.subheader("Señales operativas")
-    insight_cards = "".join(f'<article class="insight" style="--signal:{color}"><div class="insight-head"><span class="insight-label">{label}</span><span class="insight-status">{status}</span></div><strong>{title}</strong><p>{description}</p></article>' for label, status, title, description, color in build_insights(filtered, dimension_filtered))
-    st.markdown(f'<section class="insight-grid">{insight_cards}</section>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.subheader("Señales operativas")
+        insight_cards = "".join(f'<article class="insight" style="--signal:{color}"><div class="insight-head"><span class="insight-label">{label}</span><span class="insight-status">{status}</span></div><strong>{title}</strong><p>{description}</p></article>' for label, status, title, description, color in build_insights(filtered, dimension_filtered))
+        st.markdown(f'<section class="insight-grid">{insight_cards}</section>', unsafe_allow_html=True)
 
 st.caption("Los totales se calculan sumando cuenta, user_started_session y not_available_agent_session. Los CSV de la raíz se consolidan automáticamente y las filas idénticas se contabilizan una sola vez.")
