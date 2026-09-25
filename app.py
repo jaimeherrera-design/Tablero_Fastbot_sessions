@@ -114,22 +114,23 @@ st.markdown(
     .be5 { left: 19%; top: 78%; width: 43%; transform: rotate(-11deg); }
     .be6 { left: 36%; top: 42%; width: 37%; transform: rotate(49deg); }
     .be7 { left: 9%; top: 15%; width: 68%; transform: rotate(52deg); }
-    .kpi-section { margin: 4px 0 26px; padding: 18px; border: 1px solid #1f2a35; border-radius: 16px; background: #090c0f; box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 14px 36px rgba(0,0,0,.2); }
-    .section-kicker { margin: 0 0 15px 3px; color: #8b98a7; font-size: .76rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
-    .kpi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; }
-    .kpi-card { min-width: 0; min-height: 112px; padding: 15px 16px; border: 1px solid #202a33; border-top: 3px solid var(--accent); border-radius: 11px; background: linear-gradient(145deg, #11161a, #0b0e11); box-shadow: 0 8px 18px rgba(0,0,0,.2); }
+    .kpi-section { margin: 4px 0 26px; padding: 15px; border: 1px solid #1f2a35; border-radius: 16px; background: #090c0f; box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 14px 36px rgba(0,0,0,.2); }
+    .section-kicker { margin: 0 0 12px 3px; color: #8b98a7; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin: 0; }
+    .kpi-card { min-width: 0; min-height: 101px; padding: 12px 13px; border: 1px solid #202a33; border-top: 3px solid var(--accent); border-radius: 11px; background: linear-gradient(145deg, #11161a, #0b0e11); box-shadow: 0 8px 18px rgba(0,0,0,.2); }
     .kpi-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .kpi-label { overflow: hidden; color: #aebbd0; font-size: .78rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .kpi-icon { color: var(--accent); font: 600 22px/1 'Space Grotesk'; }
-    .kpi-value { margin-top: 15px; color: #f4f8ff; font: 600 clamp(1.45rem, 2vw, 2.05rem)/1 'Space Grotesk'; white-space: nowrap; }
-    .kpi-note { margin-top: 9px; color: #8795aa; font-size: .72rem; }
+    .kpi-value { margin-top: 11px; color: #f4f8ff; font: 600 clamp(1.25rem, 1.7vw, 1.85rem)/1 'Space Grotesk'; white-space: nowrap; }
+    .kpi-note { margin-top: 7px; color: #8795aa; font-size: .66rem; }
     .kpi-note strong { color: var(--accent); }
     .stTabs { margin-top: 8px; }
-    .stTabs [data-baseweb="tab-list"] { gap: 5px; padding: 5px; border: 1px solid #1f2a35; border-radius: 12px; background: #090c0f; }
-    .stTabs [data-baseweb="tab"] { height: 42px; border-radius: 8px; color: #8e9aa8; font-weight: 600; }
-    .stTabs [data-baseweb="tab"]:hover { color: #ffffff; background: #13191e; }
-    .stTabs [aria-selected="true"] { color: #ffffff !important; border-bottom: 0 !important; background: #063d34 !important; box-shadow: inset 0 0 0 1px #1ac9a8, 0 5px 16px rgba(0,0,0,.25); }
-    .stTabs [data-baseweb="tab-panel"] { padding-top: 24px; background: #050708; }
+    .stTabs [data-baseweb="tab-list"] { display: flex; gap: 4px; padding: 6px; border: 1px solid #1f2a35; border-radius: 12px; background: #090c0f; }
+    .stTabs [data-testid="stTab"] { flex: 1 1 0; height: 48px; min-width: 0; border: 1px solid transparent; border-radius: 9px; color: #8e9aa8; font-weight: 600; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
+    .stTabs [data-testid="stTab"]:hover { color: #ffffff !important; background: #13191e !important; }
+    .stTabs [data-testid="stTab"][aria-selected="true"] { color: #ffffff !important; border: 0 !important; border-top: 2px solid #ff6376 !important; border-bottom: 3px solid #13d5af !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+    .stTabs [data-testid="stTab"] p { color: inherit !important; font-size: .9rem; }
+    .stTabs [data-baseweb="tab-panel"] { padding-top: 72px !important; background: #050708; }
     .matrix-shell { overflow: auto; max-height: 430px; border: 1px solid #29364d; border-radius: 8px; }
     table.kpi-matrix { width: 100%; border-collapse: collapse; background: #070b11; font-size: .8rem; }
     table.kpi-matrix th { position: sticky; top: 0; padding: 10px; background: #0d1522 !important; color: #fff !important; text-align: center; }
@@ -150,6 +151,7 @@ st.markdown(
     .insight-status { color: var(--signal); font-size: .68rem; font-weight: 700; text-transform: uppercase; }
     .insight strong { display: block; margin: 17px 0 8px; color: #f4f8ff; font-family: 'Space Grotesk'; }
     .insight p { margin: 0; color: #aab5c7; font-size: .86rem; line-height: 1.45; }
+    @media (max-width: 1180px) { .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media (max-width: 1000px) { .kpi-grid, .insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 600px) { .kpi-section { padding: 13px; border-radius: 12px; } .kpi-grid, .insight-grid { grid-template-columns: 1fr; } .dashboard-banner { min-height: 210px; padding: 24px 20px; } .banner-content { max-width: 100%; } .dashboard-banner h1 { font-size: 28px !important; } .dashboard-banner p { max-width: 88%; font-size: .84rem; line-height: 1.5; } .banner-network { inset: 40% -15% 0 42%; opacity: .32; } }
     </style>
@@ -399,7 +401,7 @@ cards = [
 card_html = "".join(f'<article class="kpi-card" style="--accent:{color}"><div class="kpi-head"><span class="kpi-label">{label}</span><span class="kpi-icon">{icon}</span></div><div class="kpi-value">{value}</div><div class="kpi-note"><strong>{note}</strong></div></article>' for label, value, icon, color, note in cards)
 st.markdown(f'<section class="kpi-section"><div class="section-kicker">Indicadores clave de gestión</div><div class="kpi-grid">{card_html}</div></section>', unsafe_allow_html=True)
 
-evolution_tab, participation_tab, heatmap_tab, insights_tab = st.tabs(["Evolución y variaciones", "Participación", "Mapas de calor", "Insights"])
+evolution_tab, participation_tab, heatmap_tab, insights_tab = st.tabs(["📊 Evolución y variaciones", "🏛 Participación", "🧑‍💼 Mapas de calor", "💡 Insights"])
 with evolution_tab:
     control_left, control_right = st.columns(2)
     with control_left:
